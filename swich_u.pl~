@@ -1,0 +1,22 @@
+% This buffer is for notes you don't want to save.
+% If you want to create a file, visit that file with C-x C-f,
+% then enter the text in that file's own buffer.
+
+ten_times_2(List1, List2):-
+switch_N_times(List1, List2, 10).
+% base case: 0 times
+switch_N_times(L, L, 0).
+% recursive case N > 0 times
+switch_N_times(L1, L2, N):-
+N > 0,
+switch_unsorted(L1, Tmp),
+Next is N-1,
+switch_N_times(Tmp, L2, Next).
+% switch only the first 2 elements for which the 1st is larger than the 2nd
+switch_unsorted([], []).
+switch_unsorted([X], [X]).
+switch_unsorted([X, Y|List], [Y, X|List]):-
+X > Y.
+switch_unsorted([X, Y|List], [X|Rlist]):-
+X =< Y,
+switch_unsorted([Y|List], Rlist)
